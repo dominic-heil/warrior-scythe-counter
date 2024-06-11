@@ -1,0 +1,8 @@
+{
+    "version": 1,
+    "data": {
+        "enabled": true,
+        "print_as_combat_message": true,
+        "print_to_chat": true
+    }
+}

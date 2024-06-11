@@ -1,0 +1,13 @@
+{
+    "name": "warrior-scythe-counter",
+    "author": "Dominic",
+    "description": "Counts warrior scythes and aerials during deadly gamble.",
+    "options": {
+        "cliName": "Scythes",
+        "guiName": "Warrior Scythe Counter",
+        "settingsVersion": 1,
+        "settingsFile": "config.json",
+    },
+    "servers": ["https://raw.githubusercontent.com/dominic-heil/warrior-scythe-counter/master/"],
+    "disableAutoUpdate": false
+}
