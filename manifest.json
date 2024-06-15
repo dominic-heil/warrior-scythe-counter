@@ -1,16 +1,31 @@
 {
   "files": {
     "config.json": "29af918a97926e84d35ffa8a2aa96fba4fff7464b6cccc0f6b33ed873b9507a8",
-    "index.js": "a7192edaed22a22697294740df02005ffe5fdaca92bd3444780e183bdc0019e6",
+    "index.js": "e50334f7735ca8d8ae8f8f40a2ac7dd0bfb479d258a1bf6f7c4b6fe1e5fb9253",
     "module.json": "0955969e21c040ba6003a9baf2d98fd07e2b14c22d573f42e8c9f52a30350e35",
+    "README.md": "802ab71dd63efc36d265ebe9dc7db1b17582217a9265ff5ad7f372ea1640f26f",
     "settings_structure.js": "38f556ea9d61ea23bed84ff0595dc8bd97689ab80295741292749af27cad5da8",
     "ui/drag-4.svg": "e75c593bb68f2e53eaf42eddc4fe61a612dcfdb06e08e9dca29106f63c2db52d",
-    "ui/index.html": "73df5a51a091ca7091c7f285cfa35c6d0ccfec02a9b4576f6c1eac9a174af38f",
-    "ui/main.js": "116293420f73d3df10057b61a4d75cf5b34ab8ee3b847aa44364a0763d7a98a4",
+    "ui/index.html": "264395cee7f00d1c9f5531d5917ca8724fa4c494c605b4be820b26a3ed62d37d",
+    "ui/main.js": "9d2d2dcb94ac95c84844dda37228066936820e52d50123751548d0aa84a25b74",
     "ui/none.png": "42b601bc0d93dfca6e350b46d113bf8e7ff9e40a87a0c57ab9b3c9c219062423",
+    "ui/settings.svg": "0195fba7498ee4ec19ace148889623c3946f84f278e511482e0c98b8f2374702",
     "ui/silver.png": "65b68579e44f0eacfe159515759eb0dad4b8539baea0e69752b38954f819f4e9",
     "ui/icons/aerial.webp": "83b7493b8574b858714a08d949a574f607310b127c4a61d878b6f3f765e8407b",
+    "ui/icons/archer.webp": "290722e825c876223962912e50867918e58d5552b8875a381cf4797b455828a1",
+    "ui/icons/berserker.webp": "6464e00fdfb120e336f8245aa08a6c195c9120168c79de4ffb561b84d282df1d",
+    "ui/icons/brawler.webp": "db86aa3953ff9a72a44b3937111362dd11df5997a6e6493e15e96d5a60da10a2",
     "ui/icons/edict.webp": "41298c2c731b64c911a176d8f048261c8ae044e0e363f3195d0b45ab74781514",
-    "ui/icons/scythe.webp": "0daacdfad28bdaae8ed9d9b8e0373f4d5dee82997c20125deb78124e0a1c7eaa"
+    "ui/icons/gunner.webp": "870570f1a37e4c4d83549680ada86dbc48260c67ffde544cea74593e1d0acbbb",
+    "ui/icons/lancer.webp": "cfcfb684a83ed5a75a0bcef9f77e3c71a973cdacdd461e4e8518fbf19f45dcb3",
+    "ui/icons/mystic.webp": "00eacc4a794a8ef3c6e97c81b2551cd4c4e0b79a5775066e049e6b6a05641c59",
+    "ui/icons/ninja.webp": "64faff1a87cbf51023e1ebdef02d68870024b6c504d2fd8f7d84af8f36416976",
+    "ui/icons/priest.webp": "13847473644c4a0762689be7ed429656549f2618b95c238b2368ce0d2430d31f",
+    "ui/icons/reaper.webp": "8c4ca01d280fb4d841b2a0efba49bdf03bc31ffbbef47d4c94069fd31b8e677c",
+    "ui/icons/scythe.webp": "0daacdfad28bdaae8ed9d9b8e0373f4d5dee82997c20125deb78124e0a1c7eaa",
+    "ui/icons/slayer.webp": "0c011882cc4583cc5ef23777fb53252716d157ff666762570b2ae8974f2c8593",
+    "ui/icons/sorcerer.webp": "fdeafa524092096ee8b0857d44942222bc9d960bb2e3b9471ef4173057ed76ee",
+    "ui/icons/valkyrie.webp": "cfca7f1999ca4a0651eb684e32cb12e9aec2238d0cd7e328febb3d145cff771f",
+    "ui/icons/warrior.webp": "228f686f544e536242ee395974291a0b96c681035d81067162ab85e1d35e267e"
   }
 }
