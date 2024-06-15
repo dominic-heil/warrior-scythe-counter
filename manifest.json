@@ -1,6 +1,7 @@
 {
   "files": {
-    "config_generator.js": "5e3e8cf816bfd066f7db05d3923638b876b91b6f2e458774ccab440b1978e512",
+    "config_generator.js": "cd3e1991709c61bb5c40a7ead19c502fb5f4afdf03391189341de3a83e6a7a5c",
+    "generated-manifest.json": "5d2dcc4bbca7419c0fe281cf231860c12d881c3a729562d8c43f18d59a8057b4",
     "index.js": "2e2a2e7de62baf6aec5bec123aafd7e95608915bc4b6701c3937b528419db477",
     "module.json": "fde98d474b73a5507c18d0273242f2baaf40cb70a84d6fd3320e33fb78164044",
     "README.md": "802ab71dd63efc36d265ebe9dc7db1b17582217a9265ff5ad7f372ea1640f26f",
