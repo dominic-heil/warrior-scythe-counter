@@ -6,7 +6,8 @@
         "cliName": "Scythes",
         "guiName": "Warrior Scythe Counter",
         "settingsVersion": 1,
-        "settingsFile": "config.json"
+        "settingsFile": "config.json",
+        "settingsMigrator": "config_generator.js"
     },
     "servers": ["https://raw.githubusercontent.com/dominic-heil/warrior-scythe-counter/master/"],
     "disableAutoUpdate": false
