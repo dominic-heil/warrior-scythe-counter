@@ -258,19 +258,7 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
 
     mod.command.add('scythe', {
         $default() {
-            if (uii) {
-                uii.show();
-                if (uii.ui.window) {
-                    uii.ui.window.webContents.on("did-finish-load", () => {
-                        uii.ui.window.webContents.executeJavaScript(
-                          "!function(){var e=document.getElementById('close-btn');e.style.cursor='default',e.onclick=function(){window.parent.close()}}();"
-                        );
-                    });
-                }
-            } else {
-                mod.settings.enabled = !mod.settings.enabled;
-                mod.command.message(mod.settings.enabled ? 'enabled' : 'disabled');
-            }
+            ui()
         },
         ui() {
         	if (!opened) {
@@ -334,22 +322,5 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
 
     }
 
-    let uii = null;
-    if (global.TeraProxy.GUIMode) {
-        uii = new SettingsUI(mod, require('./settings_structure'), mod.settings, {
-            width: 750,
-            height: 280,
-            resizable: false
-        });
-        uii.on('update', settings => {
-            mod.settings = settings;
-        });
 
-        this.destructor = () => {
-            if (uii) {
-                uii.close();
-                uii = null;
-            }
-        };
-    }
 }
