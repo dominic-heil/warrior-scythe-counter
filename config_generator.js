@@ -3,7 +3,7 @@
 const DefaultSettings = {
     windowPos: [0, 0],
     enabled: true,
-    selfOnly: false,
+    onlySelf: false,
     displayPriestBuffs: true
 }
 
