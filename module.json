@@ -5,7 +5,7 @@
     "options": {
         "cliName": "Scythes",
         "guiName": "Warrior Scythe Counter",
-        "settingsVersion": 2,
+        "settingsVersion": 3,
         "settingsFile": "config.json",
         "settingsMigrator": "config_generator.js"
     },

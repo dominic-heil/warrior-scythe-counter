@@ -1,12 +1,12 @@
 {
   "files": {
-    "config_generator.js": "ee75b0e3b7557575fdc3ee5522ad9c1b523607c82c872cebf0f522933b4309cf",
-    "index.js": "d981ad5f9b89b4866ab5c7026271574077a2650c63917c7960c157ede02fe2d5",
-    "module.json": "0722322a83e5d4c6fb591f4a224a6f2aeab33d7edcd652ba06727fa6ccd5bbfd",
+    "config_generator.js": "6ab44642249b7e3ec518dd94ef7fb8bf3c53fada15245613271e1187f8d37de0",
+    "index.js": "b47ad54628384da7020c8a33c0f3669e2fdc282bb0693fb96e2f35bc3c0276f7",
+    "module.json": "fde98d474b73a5507c18d0273242f2baaf40cb70a84d6fd3320e33fb78164044",
     "README.md": "802ab71dd63efc36d265ebe9dc7db1b17582217a9265ff5ad7f372ea1640f26f",
     "ui/drag-4.svg": "e75c593bb68f2e53eaf42eddc4fe61a612dcfdb06e08e9dca29106f63c2db52d",
-    "ui/index.html": "264395cee7f00d1c9f5531d5917ca8724fa4c494c605b4be820b26a3ed62d37d",
-    "ui/main.js": "9d2d2dcb94ac95c84844dda37228066936820e52d50123751548d0aa84a25b74",
+    "ui/index.html": "7dbf8e7ea84eac72972181aee93c11d895d00c7da49bcf7a1cb5bef22621fda6",
+    "ui/main.js": "38fb16f93d09779263cb1714c9c9b1f6f73ee04555d706b2e733529865145582",
     "ui/none.png": "42b601bc0d93dfca6e350b46d113bf8e7ff9e40a87a0c57ab9b3c9c219062423",
     "ui/settings.svg": "0195fba7498ee4ec19ace148889623c3946f84f278e511482e0c98b8f2374702",
     "ui/silver.png": "65b68579e44f0eacfe159515759eb0dad4b8539baea0e69752b38954f819f4e9",

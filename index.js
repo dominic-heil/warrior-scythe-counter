@@ -65,10 +65,11 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
 		}
 		mod.settings.onlySelf = event.onlySelf;
 		mod.settings.displayPriestBuffs = event.displayPriestBuffs;
+		mod.settings.displayMessage = event.displayMessage
 	})
 
 	ui.on('requestSettings', event => {
-		ui.send('settings',  {enabled: mod.settings.enabled, onlySelf: mod.settings.onlySelf, displayPriestBuffs: mod.settings.displayPriestBuffs})
+		ui.send('settings',  {enabled: mod.settings.enabled, onlySelf: mod.settings.onlySelf, displayPriestBuffs: mod.settings.displayPriestBuffs, displayMessage: mod.settings.displayMessage})
 	})
 
     let teamMemberList = [];
@@ -140,6 +141,10 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
 	    		return;
 	    	}
 	        sendDeadlyGabmeOverToUi(event.target)
+	        if (event.target === mod.game.me.gameId) {
+	        	let message = "AERIAL: " + aerialCounterMap[event.target]  + " / SCYTHE: " + scytheCounterMap[event.target] 
+	        	mod.send('S_DUNGEON_EVENT_MESSAGE', 2, { type: 33, chat: false, channel: 0, message: message });
+	        }
             timeoutMap[event.target] = null;	
 	    }
 	    if (EDICT_ABNORMALS.includes(event.id) && mod.settings.displayPriestBuffs === true) {

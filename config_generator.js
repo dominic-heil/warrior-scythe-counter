@@ -4,8 +4,9 @@ const DefaultSettings = {
     windowPos: [0, 0],
     enabled: true,
     onlySelf: false,
-    displayPriestBuffs: true
-}
+    displayPriestBuffs: true,
+    displayMessage: false
+}   
 
 module.exports = function MigrateSettings(from_ver, to_ver, settings) {
     if (from_ver === undefined) {

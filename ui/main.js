@@ -29,14 +29,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const enabled = document.getElementById('enabled-checkbox').checked;
     const onlySelf = document.getElementById('self-checkbox').checked;
     const displayPriestBuffs = document.getElementById('priest-buffs-checkbox').checked;
+    const displayMessage = document.getElementById('self-displayMessage-checkbox').checked;
 
     console.log('Enabled', enabled)
     console.log('Only Self:', onlySelf);
     console.log('Display Priest Buffs:', displayPriestBuffs);
+    console.log('Display Priest Buffs:', displayMessage);
 
     document.getElementById('settings-overlay').style.display = 'none';
-    console.log({enabled: enabled, onlySelf:onlySelf, displayPriestBuffs:displayPriestBuffs})
-    mod.send('settingsBack', {enabled: enabled, onlySelf: onlySelf, displayPriestBuffs: displayPriestBuffs})
+    console.log({enabled: enabled, onlySelf:onlySelf, displayPriestBuffs:displayPriestBuffs, displayMessage:displayMessage})
+    mod.send('settingsBack', {enabled: enabled, onlySelf: onlySelf, displayPriestBuffs: displayPriestBuffs, displayMessage: displayMessage})
   });
 
   mod.on('settings', event => {
