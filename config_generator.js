@@ -1,5 +1,6 @@
 "use strict"
 
+
 const DefaultSettings = {
     windowPos: [0, 0],
     enabled: true,
