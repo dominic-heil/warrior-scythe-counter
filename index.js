@@ -57,7 +57,6 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
 	mod.game.on('leave_game', () => { ui.close(); mod.clearAllIntervals() })
 
 	ui.on('back', event => {
-		mod.log('back', event.text)
 	})
 
 	ui.on('settingsBack', event => {
@@ -66,7 +65,6 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
 		}
 		mod.settings.onlySelf = event.onlySelf;
 		mod.settings.displayPriestBuffs = event.displayPriestBuffs;
-		mod.log(event)
 	})
 
 	ui.on('requestSettings', event => {
@@ -111,7 +109,6 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
     }
 
     mod.hook('S_ABNORMALITY_BEGIN', 4, {order: -Infinity}, event => {
-    	mod.log(event)
       	if (!teamMemberList.includes(event.target)) {
       		return;
       	}
@@ -153,7 +150,6 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
     mod.hook('S_ACTION_STAGE', 9, {order: -Infinity}, event => {
     	if (teamMemberList.includes(event.gameId) && timeoutMap[event.gameId] != null) {
             if (SCYTHE_IDS.includes(event.skill.id)) {
-            	mod.log
                 scytheCounterMap[event.gameId]++;
                 mod.log("scythe: " + event.skill.id)
                 mod.log({name: teamMemberNameMap[event.gameId], aerial: aerialCounterMap[event.gameId]  || 0, scythe: scytheCounterMap[event.gameId]  || 0})
@@ -172,8 +168,6 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
 
     // S_LEAVE_PARTY_MEMBER 2, serverId, playerId, name
 	mod.hook('S_LEAVE_PARTY_MEMBER', 2, {order: -Infinity}, event => {
-    	mod.log("S_LEAVE_PARTY_MEMBER: ");
-    	mod.log(event);
 
     	var gameId = playerIdToGameId[event.playerId];
     	// remove teammeber id from list
@@ -185,8 +179,6 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
 
     // S_LEAVE_PARTY 1: -
     mod.hook('S_LEAVE_PARTY', 1, {order: -Infinity}, event => {
-    	mod.log("S_LEAVE_PARTY: ");
-    	mod.log(event);
         teamMemberList = [mod.game.me.gameId];
     })
 
@@ -196,8 +188,6 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
 
     // S_PARTY_MEMBER_LIST: 9
     mod.hook('S_PARTY_MEMBER_LIST', 8, {order: -Infinity}, event => {
-    	mod.log("S_PARTY_MEMBER_LIST: ");
-    	mod.log(event);
         teamMemberList = [];
         for (let member of event.members) {
 			teamMemberList.push(member.gameId)
