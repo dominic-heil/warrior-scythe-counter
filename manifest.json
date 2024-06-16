@@ -1,10 +1,10 @@
 {
   "files": {
     "config_generator.js": "9d877685f8028c2a6bba695d932d9ab46e6024323f9cf7695ec1b7c73da43651",
-    "index.js": "e0e67f2eb8741cd427b0eb1c9abf046414ec512afabac7a517f0ffad227f7110",
+    "index.js": "92543333f17e2f9e2759fcb8e3579a054b049d9942829f6efb58405bf24c2d3f",
     "module.json": "549ef3f62318a2ee875afd18d29006578d1d914eb0870c4bfd90c979168d177a",
     "README.md": "802ab71dd63efc36d265ebe9dc7db1b17582217a9265ff5ad7f372ea1640f26f",
-    "ui/cd-main.js": "73e10fa54dfb66fbcbc64873f67779f990d99de883dbc5bb142dbf1c96ac10a9",
+    "ui/cd-main.js": "78d61c5fa1fe7e7f285382b5225873c7a45f45c5237c432a0521147a033f2b68",
     "ui/drag-4.svg": "e75c593bb68f2e53eaf42eddc4fe61a612dcfdb06e08e9dca29106f63c2db52d",
     "ui/index.html": "f54f9814c5750f26d1a7cfa7bcfa72e93fc3a16aaeafe8d51b08c2a0b4463ac0",
     "ui/main.js": "eca8e7735140f7e241408f5558bc742d4eef0060aa30dc084d306d49635472de",
@@ -12,7 +12,7 @@
     "ui/settings.svg": "0195fba7498ee4ec19ace148889623c3946f84f278e511482e0c98b8f2374702",
     "ui/silver.png": "65b68579e44f0eacfe159515759eb0dad4b8539baea0e69752b38954f819f4e9",
     "ui/stylesheet.css": "43e63e2be05cb31a136e47957577b131e3dd3d492629d70c22fdf93c467563f7",
-    "ui/warrior-cd-ui.html": "b46e1648bf8cc9aa5abeab8932b0f1191d873a2ca5e7d907276d3e24beaaee18",
+    "ui/warrior-cd-ui.html": "e2d4298eadf06796317d5c047728d1fabdb688c57825ecdd53c3014a66e655dd",
     "ui/icons/aerial.webp": "83b7493b8574b858714a08d949a574f607310b127c4a61d878b6f3f765e8407b",
     "ui/icons/archer.webp": "290722e825c876223962912e50867918e58d5552b8875a381cf4797b455828a1",
     "ui/icons/berserker.webp": "6464e00fdfb120e336f8245aa08a6c195c9120168c79de4ffb561b84d282df1d",

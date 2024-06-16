@@ -25,13 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 
-
-  mod.on('newSwift1', event => {
-    activateCdOfSkillDiv('swift-active-div1', event);
-  })
-
-  mod.on('newSwift2', event => {
-    activateCdOfSkillDiv('swift-active-div2', event);
+  mod.on('newSwift', event => {
+    activateCdOfSkillDiv('swift-active-div', event);
   })
 
   mod.on('newTempest2', event => {
@@ -46,12 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
     disableCdOfSkillDiv('dg-active-div');
   })
 
-  mod.on('swift1Over', event => {
-    disableCdOfSkillDiv('swift-active-div1');
-  });
-
-  mod.on('swift2Over', event => {
-    disableCdOfSkillDiv('swift-active-div2');
+  mod.on('swiftOver', event => {
+    disableCdOfSkillDiv('swift-active-div');
   });
 
   mod.on('tempest2Over', event => {

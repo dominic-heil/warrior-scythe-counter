@@ -10,8 +10,7 @@ const SettingsUI = require('tera-mod-ui').Settings;
 const DEADLY_GAMBLE_ABNORMAL = 100801;
 const EDICT_ABNORMALS = [805800, 805803];
 const TEMPTEST_2_ABNORMALS = [103104];
-const SWIFT_ABNORMALS_1 = [21010];
-const SWIFT_ABNORMALS_2 = [21070];
+const SWIFT_ABNORMALS = [21010, 21070];
 
 const SCYTHE_IDS = [300900, 300930, 380100, 380130];
 const AERIAL_IDS = [410131];
@@ -89,15 +88,15 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
 	})
 
 	ui.on('settingsBack', event => {
-		if (mod.settings.enabled !== event.enabled) {
-			event.enabled ? enableUi() : disableUi();
-		}
 		mod.settings.onlySelf = event.onlySelf;
 		mod.settings.displayPriestBuffs = event.displayPriestBuffs;
 		mod.settings.displayMessage = event.displayMessage
 		if (mod.settings.cdUiEnabled !== event.warriorUiEnabled) {
 			mod.settings.cdUiEnabled = event.warriorUiEnabled
 			event.warriorUiEnabled ? enableCdUi() : disableCdUi()
+		}
+		if (mod.settings.enabled !== event.enabled) {
+			event.enabled ? enableUi() : disableUi();
 		}
 	})
 
@@ -154,24 +153,14 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
 		cdUi.send('edictOver', {} )
 	}
 
-	function sendNewSwift1(gameId, event) {
+	function sendNewSwift(gameId, event) {
 		let name = teamMemberNameMap[gameId];
 		let duration = event.duration;
-		cdUi.send('newSwift1', {name: name, duration: duration} )
+		cdUi.send('newSwift', {name: name, duration: duration} )
 	}
 
-	function sendSwift1OverToUi() {
-		cdUi.send('swift1Over', {} )
-	}
-
-	function sendNewSwift2(gameId, event) {
-		let name = teamMemberNameMap[gameId];
-		let duration = event.duration;
-		cdUi.send('newSwift2', {name: name, duration: duration} )
-	}
-
-	function sendSwift2OverToUi() {
-		cdUi.send('swift2Over', {} )
+	function sendSwiftOverToUi() {
+		cdUi.send('swiftOver', {} )
 	}
 
 	function sendNewTempest2(gameId, event) {
@@ -187,9 +176,7 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
 
 
     mod.hook('S_ABNORMALITY_BEGIN', 4, {order: -Infinity}, event => {
-      	if (!teamMemberList.includes(event.target)) {
-      		return;
-      	}
+      	if (!teamMemberList.includes(event.target) || mod.settings.enabled === false) { return; }
 
         if (event.id === DEADLY_GAMBLE_ABNORMAL) {
         	if (mod.settings.onlySelf === true && event.target !== mod.game.me.gameId) {
@@ -210,37 +197,50 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
     		sendNewEdict(event.target, event)
     	}
 
-		if (SWIFT_ABNORMALS_1.includes(event.id) && event.target === mod.game.me.gameId) {
-			// mod.log("SWIFT START", event)
-			sendNewSwift1(event.target, event)
+		if (mod.settings.cdUiEnabled === true && event.target === mod.game.me.gameId) {
+			if (SWIFT_ABNORMALS.includes(event.id)) {
+				mod.log("SWIFT START", event)
+				sendNewSwift(event.target, event)
+			}
+
+			if (TEMPTEST_2_ABNORMALS.includes(event.id)) {
+				sendNewTempest2(event.target, event)
+			}
 		}
 
-		if (SWIFT_ABNORMALS_2.includes(event.id) && event.target === mod.game.me.gameId) {
-			// mod.log("SWIFT START", event)
-			sendNewSwift2(event.target, event)
-		}
-
-		if (TEMPTEST_2_ABNORMALS.includes(event.id) && event.target === mod.game.me.gameId) {
-			sendNewTempest2(event.target, event)
-		}
     })
 
 	mod.hook('S_ABNORMALITY_REFRESH', 2, {order: -Infinity}, event => {
-		if (SWIFT_ABNORMALS_1.includes(event.id) && event.target === mod.game.me.gameId) {
-			// mod.log("SWIFT REFRESH", event)
-			sendNewSwift1(event.target, event)
+		if (mod.settings.enabled === false) { return; }
+
+		if (mod.settings.cdUiEnabled && event.target === mod.game.me.gameId) {
+			if (SWIFT_ABNORMALS.includes(event.id)) {
+				mod.log("SWIFT REFRESH", event)
+				sendNewSwift(event.target, event)
+			}
+			if (TEMPTEST_2_ABNORMALS.includes(event.id)) {
+				sendNewTempest2(event.target, event)
+			}
 		}
-		if (SWIFT_ABNORMALS_2.includes(event.id) && event.target === mod.game.me.gameId) {
-			// mod.log("SWIFT REFRESH", event)
-			sendNewSwift2(event.target, event)
-		}
-		if (TEMPTEST_2_ABNORMALS.includes(event.id) && event.target === mod.game.me.gameId) {
-			sendNewTempest2(event.target, event)
+
+		if (event.id === DEADLY_GAMBLE_ABNORMAL) {
+			if (mod.settings.onlySelf === true && event.target !== mod.game.me.gameId) {
+				return;
+			}
+			if (timeoutMap[event.target] != null) {
+				mod.clearTimeout(timeoutMap[event.target]);
+				timeoutMap[event.target] = mod.setTimeout(() => {
+					sendDeadlyGabmeOverToUi(event.target);
+					timeoutMap[event.target] = null;
+				}, Number(event.duration));
+			}
 		}
 
 	})
 
 	mod.hook('S_ABNORMALITY_END', 1, {order: -Infinity}, (event) => {
+		if (mod.settings.enabled === false) { return; }
+
 	    if (event.id === DEADLY_GAMBLE_ABNORMAL) {
 	    	if (mod.settings.onlySelf === true && event.target !== mod.game.me.gameId) {
 	    		return;
@@ -252,23 +252,26 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
 	        }
             timeoutMap[event.target] = null;	
 	    }
-	    if (EDICT_ABNORMALS.includes(event.id) && mod.settings.displayPriestBuffs === true) {
+
+		if (EDICT_ABNORMALS.includes(event.id) && mod.settings.displayPriestBuffs === true) {
 	    	sendEdictOverToUi()
 	    }
-		if (SWIFT_ABNORMALS_1.includes(event.id)) {
-			// mod.log("SWIFT END", event)
-			sendSwift1OverToUi()
+
+		if (mod.settings.cdUiEnabled && event.target === mod.game.me.gameId) {
+			if (SWIFT_ABNORMALS.includes(event.id)) {
+				// mod.log("SWIFT END", event)
+				sendSwiftOverToUi()
+			}
+			if (TEMPTEST_2_ABNORMALS.includes(event.id)) {
+				sendTempest2OverToUi()
+			}
 		}
-		if (SWIFT_ABNORMALS_2.includes(event.id)) {
-			// mod.log("SWIFT END", event)
-			sendSwift2OverToUi()
-		}
-		if (TEMPTEST_2_ABNORMALS.includes(event.id)) {
-			sendTempest2OverToUi()
-		}
+
 	});
 
     mod.hook('S_ACTION_STAGE', 9, {order: -Infinity}, event => {
+		if (mod.settings.enabled === false) { return; }
+
     	if (teamMemberList.includes(event.gameId) && timeoutMap[event.gameId] != null) {
             if (SCYTHE_IDS.includes(event.skill.id)) {
                 scytheCounterMap[event.gameId]++;
@@ -283,9 +286,7 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
 
 
 
-    // S_LEAVE_PARTY_MEMBER 2, serverId, playerId, name
 	mod.hook('S_LEAVE_PARTY_MEMBER', 2, {order: -Infinity}, event => {
-
     	var gameId = playerIdToGameId[event.playerId];
     	// remove teammeber id from list
     	var index = teamMemberList.indexOf(gameId);
@@ -363,6 +364,11 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
 	async function moveCdUiTop() {
 		let focused = await mod.clientInterface.hasFocus()
 		let uiShown = await cdUi.window.isVisible()
+
+		if (!cdOpened) {
+			if (uiShown) { ui.hide() }
+			return;
+		}
 
 		if (!focused && uiShown && !cdMoving) {
 			cdUi.hide();
@@ -461,6 +467,7 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
 
 		cdUi.show();
 
+		cdOpened = true;
 		cdUi.window.setPosition(mod.settings.windowCdPos[0], mod.settings.windowCdPos[1]);
 		cdUi.window.setIgnoreMouseEvents(false);
 		cdUi.window.setVisibleOnAllWorkspaces(true);
@@ -485,6 +492,7 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
 			clearInterval(cdUiRefreshInterval);
 			cdUiRefreshInterval = null;
 		}
+		cdUi.hide();
 	}
 
 }
