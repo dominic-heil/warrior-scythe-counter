@@ -17,7 +17,7 @@ const AERIAL_IDS = [410131];
 
 
 exports.NetworkMod = function warriorScytheCounter(mod) {
-    mod.game.initialize(['me', 'me.abnormalities', 'inventory', 'contract']);
+	mod.game.initialize(['me', 'me.abnormalities', 'inventory', 'contract']);
 
 	let ui = new Host(mod, 'index.html', {
 		title: 'scythe-counter UI',
@@ -76,7 +76,7 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
 		cdJustMoved = true;
 
 
-	mod.game.on('enter_game', () => { 
+	mod.game.on('enter_game', () => {
 		if (mod.settings.enabled == null) { mod.settings.enabled = true; }
 		if (mod.settings.onlySelf == null) { mod.settings.onlySelf = true; }
 		if (mod.settings.displayPriestBuffs == null) { mod.settings.displayPriestBuffs = true; }
@@ -105,41 +105,41 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
 		ui.send('settings',  {enabled: mod.settings.enabled, onlySelf: mod.settings.onlySelf, displayPriestBuffs: mod.settings.displayPriestBuffs, displayMessage: mod.settings.displayMessage, warriorUiEnabled: mod.settings.cdUiEnabled})
 	})
 
-    let teamMemberList = [];
-    let teamMemberNameMap = {};
-    let scytheCounterMap ={};
-    let aerialCounterMap = {};
-    let timeoutMap = {}
-    let playerIdToGameId = {}
+	let teamMemberList = [];
+	let teamMemberNameMap = {};
+	let scytheCounterMap ={};
+	let aerialCounterMap = {};
+	let timeoutMap = {}
+	let playerIdToGameId = {}
 
 
-    function sendStatUpdateToUi(gameId) {
+	function sendStatUpdateToUi(gameId) {
 		let name = teamMemberNameMap[gameId];
 		let aerial = aerialCounterMap[gameId] || 0;
 		let scythe = scytheCounterMap[gameId] || 0;
-        ui.send('scytheUpdate', {name: name, aerial: aerial, scythe: scythe} )
+		ui.send('scytheUpdate', {name: name, aerial: aerial, scythe: scythe} )
 		if (gameId === mod.game.me.gameId) {
 			cdUi.send('scytheUpdate', {name: name, aerial: aerial, scythe: scythe} )
 		}
-    }
+	}
 
-    function sendNewDeadlyGambleToUi(gameId, event) {
+	function sendNewDeadlyGambleToUi(gameId, event) {
 		let name = teamMemberNameMap[gameId];
 		let duration = event.duration;
 		ui.send('newDeadlyGamble', {name: name, duration: duration} )
 		if (gameId === mod.game.me.gameId) {
 			cdUi.send('newDeadlyGamble', {name: name, duration: duration} )
 		}
-    }
+	}
 
 
-    function sendDeadlyGabmeOverToUi(gameId) {
+	function sendDeadlyGabmeOverToUi(gameId) {
 		let name = teamMemberNameMap[gameId];
-        ui.send('deadlyGambleOver', {name: name, isSelf: (gameId === mod.game.me.gameId)} )
+		ui.send('deadlyGambleOver', {name: name, isSelf: (gameId === mod.game.me.gameId)} )
 		if (gameId === mod.game.me.gameId) {
 			cdUi.send('deadlyGambleOver', {name: name, isSelf: (gameId === mod.game.me.gameId)} )
 		}
-    }
+	}
 
 	function sendNewEdict(gameId, event) {
 		let name = teamMemberNameMap[gameId];
@@ -175,31 +175,31 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
 
 
 
-    mod.hook('S_ABNORMALITY_BEGIN', 4, {order: -Infinity}, event => {
-      	if (!teamMemberList.includes(event.target) || mod.settings.enabled === false) { return; }
+	mod.hook('S_ABNORMALITY_BEGIN', 4, {order: -Infinity}, event => {
+		if (!teamMemberList.includes(event.target) || mod.settings.enabled === false) { return; }
 
-        if (event.id === DEADLY_GAMBLE_ABNORMAL) {
-        	if (mod.settings.onlySelf === true && event.target !== mod.game.me.gameId) {
-        		return;
-        	}
-            // mod.log("DG START")
+		if (event.id === DEADLY_GAMBLE_ABNORMAL) {
+			if (mod.settings.onlySelf === true && event.target !== mod.game.me.gameId) {
+				return;
+			}
+			// mod.log("DG START")
 			scytheCounterMap[event.target] = 0;
-            aerialCounterMap[event.target] = 0;
-        	sendNewDeadlyGambleToUi(event.target, event)
-			sendStatUpdateToUi(event.target);	
+			aerialCounterMap[event.target] = 0;
+			sendNewDeadlyGambleToUi(event.target, event)
+			sendStatUpdateToUi(event.target);
 			timeoutMap[event.target] = mod.setTimeout(() => {
-                sendDeadlyGabmeOverToUi(event.target);
-                timeoutMap[event.target] = null;
-            }, Number(event.duration));
-    	}
+				sendDeadlyGabmeOverToUi(event.target);
+				timeoutMap[event.target] = null;
+			}, Number(event.duration));
+		}
 
-    	if (EDICT_ABNORMALS.includes(event.id) && event.target === mod.game.me.gameId && mod.settings.displayPriestBuffs === true) {
-    		sendNewEdict(event.target, event)
-    	}
+		if (EDICT_ABNORMALS.includes(event.id) && event.target === mod.game.me.gameId && mod.settings.displayPriestBuffs === true) {
+			sendNewEdict(event.target, event)
+		}
 
 		if (mod.settings.cdUiEnabled === true && event.target === mod.game.me.gameId) {
 			if (SWIFT_ABNORMALS.includes(event.id)) {
-				mod.log("SWIFT START", event)
+				// mod.log("SWIFT START", event)
 				sendNewSwift(event.target, event)
 			}
 
@@ -208,14 +208,14 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
 			}
 		}
 
-    })
+	})
 
 	mod.hook('S_ABNORMALITY_REFRESH', 2, {order: -Infinity}, event => {
 		if (mod.settings.enabled === false) { return; }
 
 		if (mod.settings.cdUiEnabled && event.target === mod.game.me.gameId) {
 			if (SWIFT_ABNORMALS.includes(event.id)) {
-				mod.log("SWIFT REFRESH", event)
+				// mod.log("SWIFT REFRESH", event)
 				sendNewSwift(event.target, event)
 			}
 			if (TEMPTEST_2_ABNORMALS.includes(event.id)) {
@@ -241,21 +241,21 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
 	mod.hook('S_ABNORMALITY_END', 1, {order: -Infinity}, (event) => {
 		if (mod.settings.enabled === false) { return; }
 
-	    if (event.id === DEADLY_GAMBLE_ABNORMAL) {
-	    	if (mod.settings.onlySelf === true && event.target !== mod.game.me.gameId) {
-	    		return;
-	    	}
-	        sendDeadlyGabmeOverToUi(event.target)
-	        if (event.target === mod.game.me.gameId) {
-	        	let message = "AERIAL: " + aerialCounterMap[event.target]  + " / SCYTHE: " + scytheCounterMap[event.target] 
-	        	mod.send('S_DUNGEON_EVENT_MESSAGE', 2, { type: 33, chat: false, channel: 0, message: message });
-	        }
-            timeoutMap[event.target] = null;	
-	    }
+		if (event.id === DEADLY_GAMBLE_ABNORMAL) {
+			if (mod.settings.onlySelf === true && event.target !== mod.game.me.gameId) {
+				return;
+			}
+			sendDeadlyGabmeOverToUi(event.target)
+			if (event.target === mod.game.me.gameId) {
+				let message = "AERIAL: " + aerialCounterMap[event.target]  + " / SCYTHE: " + scytheCounterMap[event.target]
+				mod.send('S_DUNGEON_EVENT_MESSAGE', 2, { type: 33, chat: false, channel: 0, message: message });
+			}
+			timeoutMap[event.target] = null;
+		}
 
 		if (EDICT_ABNORMALS.includes(event.id) && mod.settings.displayPriestBuffs === true) {
-	    	sendEdictOverToUi()
-	    }
+			sendEdictOverToUi()
+		}
 
 		if (mod.settings.cdUiEnabled && event.target === mod.game.me.gameId) {
 			if (SWIFT_ABNORMALS.includes(event.id)) {
@@ -269,63 +269,63 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
 
 	});
 
-    mod.hook('S_ACTION_STAGE', 9, {order: -Infinity}, event => {
+	mod.hook('S_ACTION_STAGE', 9, {order: -Infinity}, event => {
 		if (mod.settings.enabled === false) { return; }
 
-    	if (teamMemberList.includes(event.gameId) && timeoutMap[event.gameId] != null) {
-            if (SCYTHE_IDS.includes(event.skill.id)) {
-                scytheCounterMap[event.gameId]++;
+		if (teamMemberList.includes(event.gameId) && timeoutMap[event.gameId] != null) {
+			if (SCYTHE_IDS.includes(event.skill.id)) {
+				scytheCounterMap[event.gameId]++;
 				sendStatUpdateToUi(event.gameId);
-            }
-            if (AERIAL_IDS.includes(event.skill.id)) {
-                aerialCounterMap[event.gameId]++;
+			}
+			if (AERIAL_IDS.includes(event.skill.id)) {
+				aerialCounterMap[event.gameId]++;
 				sendStatUpdateToUi(event.gameId);
-            }
-    	}
-    })
+			}
+		}
+	})
 
 
 
 	mod.hook('S_LEAVE_PARTY_MEMBER', 2, {order: -Infinity}, event => {
-    	var gameId = playerIdToGameId[event.playerId];
-    	// remove teammeber id from list
-    	var index = teamMemberList.indexOf(gameId);
+		var gameId = playerIdToGameId[event.playerId];
+		// remove teammeber id from list
+		var index = teamMemberList.indexOf(gameId);
 		if (index !== -1) {
-		  teamMemberList.splice(index, 1);
+			teamMemberList.splice(index, 1);
 		}
-    })   
+	})
 
-    // S_LEAVE_PARTY 1: -
-    mod.hook('S_LEAVE_PARTY', 1, {order: -Infinity}, event => {
-        teamMemberList = [mod.game.me.gameId];
-    })
+	// S_LEAVE_PARTY 1: -
+	mod.hook('S_LEAVE_PARTY', 1, {order: -Infinity}, event => {
+		teamMemberList = [mod.game.me.gameId];
+	})
 
-    // S_LOGOUT_PARTY_MEMBER: 1, playerId, serverId 
+	// S_LOGOUT_PARTY_MEMBER: 1, playerId, serverId
 
 
 
-    // S_PARTY_MEMBER_LIST: 9
-    mod.hook('S_PARTY_MEMBER_LIST', 8, {order: -Infinity}, event => {
-        teamMemberList = [];
-        for (let member of event.members) {
+	// S_PARTY_MEMBER_LIST: 9
+	mod.hook('S_PARTY_MEMBER_LIST', 8, {order: -Infinity}, event => {
+		teamMemberList = [];
+		for (let member of event.members) {
 			teamMemberList.push(member.gameId)
 			teamMemberNameMap[member.gameId] = member.name
 			playerIdToGameId[member.playerId] = member.gameId
-        }
-    })
+		}
+	})
 
 
-    // on login, set team member list to empty
-    mod.hook('S_LOGIN', 14, {order: -Infinity}, event => {
-    	teamMemberNameMap = {};
+	// on login, set team member list to empty
+	mod.hook('S_LOGIN', 14, {order: -Infinity}, event => {
+		teamMemberNameMap = {};
 		teamMemberNameMap[event.gameId] = event.name;
 		teamMemberList = [event.gameId];
-    })
+	})
 
-    // on logout set team member list to nothing
+	// on logout set team member list to nothing
 
 
-    let lastFocus = null;
+	let lastFocus = null;
 
 	async function moveTop() {
 		let gameFocused = await mod.clientInterface.hasFocus()
@@ -382,50 +382,50 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
 		if (focused) { cdUi.window.moveTop();}
 	}
 
-    // UI
+	// UI
 
-    let uiRefreshInterval = null;
-    let cdUiRefreshInterval = null;
+	let uiRefreshInterval = null;
+	let cdUiRefreshInterval = null;
 
-    mod.command.add('scythe', {
-        $default() {
-            mod.command.exec('scythe ui')
-        },
-        ui() {
-        	if (!opened) {
-        		enableUi();
-        	} else {
-        		disableUi();
-        	}
-        	mod.command.message(opened ? "scythe-counter UI started": "scythe-counter UI stopped")
-        },
-        on() {
-        	enableUi()
-            mod.command.message('scythe-counter UI started');
-        },
-        off() {
-            disableUi();
-            mod.command.message('scythe-counter UI disabled');
-        },
-        team() {
-        	mod.command.message("team: ", teamMemberList);
-        	// mod.log(teamMemberList);
-        },
-        me() {
-        	// mod.log("me:" , mod.game.me.gameId)
-        	mod.command.message("me: ", mod.game.me.gameId)
-        },
-        names() {
-        	// mod.log("names", teamMemberNameMap)
-        }
-    });
+	mod.command.add('scythe', {
+		$default() {
+			mod.command.exec('scythe ui')
+		},
+		ui() {
+			if (!opened) {
+				enableUi();
+			} else {
+				disableUi();
+			}
+			mod.command.message(opened ? "scythe-counter UI started": "scythe-counter UI stopped")
+		},
+		on() {
+			enableUi()
+			mod.command.message('scythe-counter UI started');
+		},
+		off() {
+			disableUi();
+			mod.command.message('scythe-counter UI disabled');
+		},
+		team() {
+			mod.command.message("team: ", teamMemberList);
+			// mod.log(teamMemberList);
+		},
+		me() {
+			// mod.log("me:" , mod.game.me.gameId)
+			mod.command.message("me: ", mod.game.me.gameId)
+		},
+		names() {
+			// mod.log("names", teamMemberNameMap)
+		}
+	});
 
-    function enableUi() {
+	function enableUi() {
 		enableCdUi()
 
-        mod.settings.enabled = true;
+		mod.settings.enabled = true;
 
-    	opened = true;
+		opened = true;
 		ui.show();
 		cdUi.show();
 		cdUi.window.setPosition(mod.settings.windowCdPos[0], mod.settings.windowCdPos[1]);
@@ -437,7 +437,7 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
 		ui.window.setIgnoreMouseEvents(false);
 		ui.window.setVisibleOnAllWorkspaces(true);
 		ui.window.setAlwaysOnTop(true, 'screen-saver', 1);
-	
+
 		if (!uiRefreshInterval) {
 			uiRefreshInterval = mod.setInterval(() => { moveTop() }, 500);
 		}
@@ -446,11 +446,11 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
 		ui.window.on('moved', () => { mod.settings.windowPos = ui.window.getPosition(); mod.setTimeout(() => { moving = false; ui.window.blur(); justMoved = true; }, 500) })
 		ui.window.on('close', () => { mod.log("close"); mod.settings.windowPos = ui.window.getPosition(); mod.clearAllIntervals(); opened = false });
 		ui.window.webContents.openDevTools();
-    }
+	}
 
-    function disableUi() {
+	function disableUi() {
 		disableCdUi()
-        mod.settings.enabled = false;
+		mod.settings.enabled = false;
 
 		ui.hide();
 		opened = false;
@@ -458,9 +458,9 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
 			clearInterval(uiRefreshInterval);
 			uiRefreshInterval = null;
 		}
-    	mod.command.message("scythe-counter UI disabled. Type \"scyhte on\" to turn it back on.")
+		mod.command.message("scythe-counter UI disabled. Type \"scyhte on\" to turn it back on.")
 
-    }
+	}
 
 	function enableCdUi() {
 		mod.settings.cdUiEnabled = true;
