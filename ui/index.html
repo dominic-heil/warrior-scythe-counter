@@ -2,215 +2,7 @@
 
 <head>
   <script src="main.js"></script>
-  <style type="text/css" class="INLINE_PEN_STYLESHEET_ID">
-
-    html {
-      border-radius: 6px;
-    }
-
-    body {
-      border-radius: 6px;
-      font-family: sans-serif;
-      font-size: 14px;
-      margin: 0;
-      padding: 0;
-      position: relative;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      user-select: none;
-      background-color: transparent; 
-    }
-
-    .draggable {
-      -webkit-app-region: drag;
-    }
-
-    .container {
-      width: calc(100% - 2px);
-      height: calc(100% - 2px);
-      overflow-y: scroll;
-      border-radius: 6px;
-      background-color: #00000030;
-      border: 1px solid #ffffff30;
-    }
-
-    ::-webkit-scrollbar {
-        display: none;
-    }
-
-    .background {
-      position: relative;
-      width: 100%; /* Fixed width */
-      height: 28px; /* Fixed height */
-      background-color: #00000072;
-    }
-
-    .background::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 8px;
-        right: 8px;
-        height: 1px; /* Adjust the height of the border */
-        padding-left: 5px;
-        background-color: #ffffff48; /* Border color */
-    }
-
-    .textDiv {
-      padding: 4px;
-      padding-left: 8px;
-      padding-right: 8px;
-      position: absolute;
-      color: white;
-      width: calc(100% - 16px);
-      height: calc(100% - 8px);
-      display: flex;
-      white-space: nowrap;
-      display: flex;
-      align-items: center;
-    }
-
-    .dgActive {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 0; /* Start with 0 width */
-      height: 100%;
-      background-color: transparent; 
-      animation: dgActiveAnimation var(--animation-duration) forwards linear, changeColor 1s infinite;
-    }
-
-    .dgOverSelf {
-      background-color: #32a3ff3b !important;
-    }
-
-    .dgOver {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%; 
-      height: 100%;
-      background-color: #ffffff10; 
-    }
-
-
-    @keyframes dgActiveAnimation {
-      0% {
-        width: 0; /* Start with 0 width */
-      }
-      100% {
-        width: 100%; /* Expand to 100% width */
-      }
-    }
-
-    @keyframes fixedColor {
-      100% {
-        background-color: #ffffff0c; /* Expand to 100% width */
-      }
-    }
-
-    @keyframes changeColor {
-      0% {
-        background-color: #c77e00cc; /* Alternate color every 1s */
-      }
-      50% {
-        background-color: #ef9900cc; /* Stay red once it reaches 100% width */
-      }
-      100% {
-        background-color: #c77e00cc; /* Alternate color every 1s */
-      }
-    }
-
-    .nameDiv {
-      min-width: 86px;
-      width: 86px;
-      max-width: 86px;
-      text-overflow: ellipsis;
-      overflow: hidden; 
-    }
-
-    .iconTextDiv {
-    }
-
-    .topRightIcon{
-      z-index: 3;
-    }
-
-    .icon {
-      width: 18px;
-      height: 18px;
-      padding-right: 8px;
-      padding-left: 8px;
-    }
-
-    .classIcon {
-      padding-right: 8px;
-      height: 18px;
-      width: 18px;
-    }
-
-    .settingsDiv {
-      width: 100%;
-      height: 100%;
-      background-color: #ffffff0c;  
-    }
-
-    .settings-icon {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      cursor: pointer;
-    }
-
-    .settings-content {
-      z-index: 1;
-      position: absolute;
-      top: 0;
-      left: 0;
-      justify-content: center;
-      align-items: center;
-      background: #00000080;
-      color: #ffffff;
-      border-radius: 6px;
-      text-align: center;
-      width: calc(100% - 12px);
-      height: calc(100% - 12px);
-      margin: 6px;
-    }
-
-
-    .settings-overlay {
-      position: absolute;
-      display: none;
-      width: 100%;
-      height: 100%;
-      background-color: #000000a1;
-      border-radius: 6px;
-    }
-
-    .settings-content label {
-      display: flex;
-      align-items: center;
-      text-align: left;
-      width: 100%;
-      max-width: 300px; /* Adjust this width as needed */
-      margin: 2px 0;
-      padding-left: 6px;
-    }
-    .settings-content h2 {
-      margin: 0;
-      padding: 7px;
-      text-align: center;
-    }
-    .settings-content label input {
-      margin-right: 10px;
-    }
-    button {
-      margin: 5px;
-      padding: 10px 20px;
-    }
-  </style>
+    <link rel="stylesheet" href="stylesheet.css">
 </head>
 
 <body id="mainBody">
@@ -220,7 +12,6 @@
   </div>
     <div class="settings-overlay" id="settings-overlay">
        <div id="settings-content" class="settings-content">
-            <h2>Settings</h2>
             <label>
                 <input type="checkbox" id="enabled-checkbox">
                 Enabled
@@ -233,10 +24,14 @@
                 <input type="checkbox" id="self-displayMessage-checkbox">
                 Display Scythes as Pop-Up?
             </label>
-            <label>
-                <input type="checkbox" id="priest-buffs-checkbox">
-                Display Priest Buffs
-            </label>
+           <label>
+               <input type="checkbox" id="priest-buffs-checkbox">
+               Display Priest Buffs
+           </label>
+           <label>
+               <input type="checkbox" id="warrior-ui-enabled-checkbox">
+               Enable CD UI
+           </label>
             <br>
             <button id="save-button">Save</button>
             <button id="close-button">Close</button>

@@ -2,10 +2,12 @@
 
 const DefaultSettings = {
 	windowPos: [0, 0],
+	windowCdPos: [0, 0],
 	enabled: true,
 	onlySelf: false,
 	displayPriestBuffs: true,
-	displayMessage: false
+	displayMessage: false,
+	cdUiEnabled: true
 }
 
 module.exports = function MigrateSettings(from_ver, to_ver, settings) {

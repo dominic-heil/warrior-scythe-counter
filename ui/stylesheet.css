@@ -1,0 +1,259 @@
+
+:root {
+    --animation-duration: 10000ms;
+    --change-color-1: #c77e00cc;
+    --change-color-2: #ef9900cc;
+    --skillTimeStart: 1000;
+}
+
+html {
+    border-radius: 6px;
+}
+
+body {
+    border-radius: 6px;
+    font-family: sans-serif;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    user-select: none;
+    background-color: transparent;
+}
+
+.draggable {
+    -webkit-app-region: drag;
+}
+
+.container {
+    width: calc(100% - 2px);
+    height: calc(100% - 2px);
+    overflow-y: scroll;
+    border-radius: 6px;
+    background-color: #00000030;
+    border: 1px solid #ffffff30;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.background {
+    position: relative;
+    width: 100%; /* Fixed width */
+    height: 28px; /* Fixed height */
+    background-color: #00000072;
+}
+
+.background::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 8px;
+    right: 8px;
+    height: 1px; /* Adjust the height of the border */
+    padding-left: 5px;
+    background-color: #ffffff48; /* Border color */
+}
+
+.cdBbackground {
+    position: relative;
+    width: 100%; /* Fixed width */
+    height: 28px; /* Fixed height */
+    background-color: #00000072;
+}
+
+.cdContainer {
+    background-color: transparent;
+    height: 84px;
+    min-height: 84px;
+}
+
+.textDiv {
+    padding: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+    position: absolute;
+    color: white;
+    width: calc(100% - 16px);
+    height: calc(100% - 8px);
+    display: flex;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+}
+
+.dgActive {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0; /* Start with 0 width */
+    height: 100%;
+    background-color: transparent;
+    animation: dgActiveAnimation var(--animation-duration) forwards linear, changeColor 1s infinite;
+}
+
+
+.skillActive {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0; /* Start with 0 width */
+    height: 100%;
+    background-color: transparent;
+    animation: skillWidthDecreasing var(--animation-duration) forwards linear, changeColor 1s infinite;
+}
+
+.dgOverSelf {
+    background-color: #32a3ff3b !important;
+}
+
+.dgOver {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff10;
+}
+
+
+@keyframes dgActiveAnimation {
+    0% {
+        width: 0; /* Start with 0 width */
+    }
+    100% {
+        width: 100%; /* Expand to 100% width */
+    }
+}
+
+@keyframes skillWidthDecreasing {
+    0% {
+        width: var(--skillTimeStart); /* Start with 0 width */
+    }
+    100% {
+        width: 0; /* Expand to 100% width */
+    }
+}
+
+
+
+@keyframes fixedColor {
+    100% {
+        background-color: #ffffff0c; /* Expand to 100% width */
+    }
+}
+
+@keyframes changeColor {
+    0% {
+        background-color: var(--change-color-1); /* Alternate color every 1s */
+    }
+    50% {
+        background-color: var(--change-color-2); /* Stay red once it reaches 100% width */
+    }
+    100% {
+        background-color: var(--change-color-1); /* Alternate color every 1s */
+    }
+}
+
+.nameDiv {
+    min-width: 86px;
+    width: 86px;
+    max-width: 86px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.iconTextDiv {
+}
+
+.topRightIcon{
+    z-index: 3;
+}
+
+.icon {
+    width: 18px;
+    height: 18px;
+    padding-right: 8px;
+    padding-left: 8px;
+}
+
+.cdIcon {
+    width: 18px;
+    height: 18px;
+    padding-right: 8px;
+}
+
+.classIcon {
+    padding-right: 8px;
+    height: 18px;
+    width: 18px;
+}
+
+.settingsDiv {
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff0c;
+}
+
+.settings-icon {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.settings-content {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+    background: #00000080;
+    color: #ffffff;
+    border-radius: 6px;
+    text-align: center;
+    width: calc(100% - 12px);
+    height: calc(100% - 12px);
+    margin: 6px;
+}
+
+
+.settings-overlay {
+    position: absolute;
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-color: #000000a1;
+    border-radius: 6px;
+}
+
+.settings-content label {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    width: 100%;
+    max-width: 300px; /* Adjust this width as needed */
+    margin: 2px 0;
+    padding-left: 6px;
+}
+.settings-content h2 {
+    margin: 0;
+    padding: 7px;
+    text-align: center;
+}
+.settings-content label input {
+    margin-right: 10px;
+}
+
+button {
+    margin: 5px;
+    padding: 2px 20px;
+    height: 24px;
+}
+
+
