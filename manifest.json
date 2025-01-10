@@ -1,12 +1,12 @@
 {
   "files": {
     "config_generator.js": "9d877685f8028c2a6bba695d932d9ab46e6024323f9cf7695ec1b7c73da43651",
-    "index.js": "80dc1a1fa5a3f52e2b6c33e56de5d53efb3f1d5a835d94be40d5554c9f424b76",
+    "index.js": "35bdd336b23ff5ffe7ab3ffe118933fecb72465dae1d085f9303612a55c7fbdc",
     "module.json": "549ef3f62318a2ee875afd18d29006578d1d914eb0870c4bfd90c979168d177a",
     "README.md": "802ab71dd63efc36d265ebe9dc7db1b17582217a9265ff5ad7f372ea1640f26f",
     "ui/cd-main.js": "78d61c5fa1fe7e7f285382b5225873c7a45f45c5237c432a0521147a033f2b68",
     "ui/drag-4.svg": "e75c593bb68f2e53eaf42eddc4fe61a612dcfdb06e08e9dca29106f63c2db52d",
-    "ui/index.html": "f54f9814c5750f26d1a7cfa7bcfa72e93fc3a16aaeafe8d51b08c2a0b4463ac0",
+    "ui/index.html": "904b24ca80df302c7f2e7057349a1a892f0a1567fcc21009241ffcbca5ae9d53",
     "ui/main.js": "eca8e7735140f7e241408f5558bc742d4eef0060aa30dc084d306d49635472de",
     "ui/none.png": "42b601bc0d93dfca6e350b46d113bf8e7ff9e40a87a0c57ab9b3c9c219062423",
     "ui/settings.svg": "0195fba7498ee4ec19ace148889623c3946f84f278e511482e0c98b8f2374702",
