@@ -304,7 +304,6 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
 	// S_LOGOUT_PARTY_MEMBER: 1, playerId, serverId
 
 
-
 	// S_PARTY_MEMBER_LIST: 9
 	mod.hook('S_PARTY_MEMBER_LIST', 8, {order: -Infinity}, event => {
 		teamMemberList = [];
