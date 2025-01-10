@@ -246,9 +246,10 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
 				return;
 			}
 			sendDeadlyGabmeOverToUi(event.target)
-			if (event.target === mod.game.me.gameId) {
+			if (event.target === mod.game.me.gameId && mod.settings.displayMessage) {
 				let message = "AERIAL: " + aerialCounterMap[event.target]  + " / SCYTHE: " + scytheCounterMap[event.target]
 				mod.send('S_DUNGEON_EVENT_MESSAGE', 2, { type: 33, chat: false, channel: 0, message: message });
+				mod.command.message(message);
 			}
 			timeoutMap[event.target] = null;
 		}
@@ -421,17 +422,14 @@ exports.NetworkMod = function warriorScytheCounter(mod) {
 	});
 
 	function enableUi() {
-		enableCdUi()
-
 		mod.settings.enabled = true;
 
 		opened = true;
 		ui.show();
-		cdUi.show();
-		cdUi.window.setPosition(mod.settings.windowCdPos[0], mod.settings.windowCdPos[1]);
-		cdUi.window.setIgnoreMouseEvents(false);
-		cdUi.window.setVisibleOnAllWorkspaces(true);
-		cdUi.window.setAlwaysOnTop(true, 'screen-saver', 1);
+
+		if (mod.settings.cdUiEnabled) {
+			enableCdUi();
+		}
 
 		ui.window.setPosition(mod.settings.windowPos[0], mod.settings.windowPos[1]);
 		ui.window.setIgnoreMouseEvents(false);
